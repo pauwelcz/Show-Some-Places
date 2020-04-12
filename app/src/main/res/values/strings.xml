@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Show Some Places</string>
+
+    <string name="home_activity_string">Home</string>
+    <string name="add_activity_string">Search Place(s)</string>
+    <string name="fav_activity_string">My Places</string>
 </resources>
