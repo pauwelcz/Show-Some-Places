@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".FavActivity">
 
     <TextView
+        android:id="@+id/text_view1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/fav_activity_string"
@@ -16,6 +18,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fav_places_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/text_view1"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/home_button"
