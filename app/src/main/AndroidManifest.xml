@@ -15,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AddActivity"></activity>
-        <activity android:name=".FavActivity" />
+        <activity android:name=".ui.fav.FavActivity" />
+        <activity
+            android:name=".ui.detail.DetailActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -4,4 +4,13 @@
     <string name="home_activity_string"><b>Home</b></string>
     <string name="add_activity_string"><b>Search Place(s)</b></string>
     <string name="fav_activity_string"><b>My Places</b></string>
+
+    <string name="title">Title</string>
+    <string name="date">Date</string>
+    <string name="poi">Point of View Type</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitute">Longitude</string>
+    <string name="add_photo">Add Photo*</string>
+    <string name="add_note">Note</string>
+    <string name="save_place">Save place</string>
 </resources>
