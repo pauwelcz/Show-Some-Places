@@ -11,10 +11,13 @@ import kotlinx.android.parcel.Parcelize
 data class Place(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    val text: String = "",
+    val title: String = "",
+    val note: String = "",
     val date: Long = 0L,
-    val category: String = "",
+    val poi: String = "",
     val user: String = "",
+    val latitude: Double = 0.0,
+    val longitude: Double = 0.0,
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     val imageByteArray: ByteArray? = null
 ) : Parcelable
