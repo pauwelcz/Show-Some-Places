@@ -10,7 +10,7 @@ import com.example.showsomeplaces.database.dao.PlaceDao
 @Database(entities = [Place::class], version = 1)
 abstract class PlaceDatabase : RoomDatabase() {
 
-    abstract fun noteDao(): PlaceDao
+    abstract fun placeDao(): PlaceDao
 
     companion object {
         private const val DATABASE_NAME = "showsomeplaces.db"
