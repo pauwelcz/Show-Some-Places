@@ -30,6 +30,11 @@ class PlaceAdapter: RecyclerView.Adapter<PlaceAdapter.NoteViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun deletePlace(place: Place) {
+        places.add(place)
+        notifyDataSetChanged()
+    }
+
     fun submitList(notes: List<Place>) {
         this.places.clear()
         this.places.addAll(notes)

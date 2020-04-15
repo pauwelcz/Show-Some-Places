@@ -1,9 +1,13 @@
 package com.example.showsomeplaces.ui.fav
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.showsomeplaces.MainActivity
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.util.PrefManager
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_add.*
 
 class FavActivity : AppCompatActivity() {
 

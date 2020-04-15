@@ -57,17 +57,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:background="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="@id/image_view"
         app:layout_constraintTop_toBottomOf="@id/note_text_view"
-        tools:text="Edit" />
+        android:text="Edit" />
 
     <Button
         android:id="@+id/note_delete_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:background="@color/colorPrimary"
         app:layout_constraintStart_toEndOf="@id/note_edit_button"
         app:layout_constraintTop_toBottomOf="@id/note_text_view"
-        tools:text="Delete" />
+        android:text="Delete" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
