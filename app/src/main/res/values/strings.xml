@@ -6,7 +6,7 @@
     <string name="fav_activity_string"><b>My Places</b></string>
 
     <string name="search_select_range">Select range:</string>
-    <string name="search_select_poi">Select point of interest (s):</string>
+    <string name="search_select_poi">Select point of interest(s):</string>
     <string name="search_select_range_unit">Select range unit:</string>
     <string name="search_button">Search</string>
 
@@ -23,12 +23,104 @@
     <string name="title_my_places">My places</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="map_key" translatable="false">AIzaSyB_qsP8AOP_P0MdlPz-48TDaJYjTP3vbjo</string>
     <string-array name="array_points_of_interests">
-        <item>Java</item>
-        <item>Kotlin</item>
-        <item>Swift</item>
-        <item>Python</item>
-        <item>Scala</item>
-        <item>Perl</item>
+        <item>Accounting</item>
+        <item>Airport</item>
+        <item>Amusement park</item>
+        <item>Aquarium</item>
+        <item>Art gallery</item>
+        <item>Atm</item>
+        <item>Bakery</item>
+        <item>Bank</item>
+        <item>Bar</item>
+        <item>Beauty salon</item>
+        <item>Bicycle store</item>
+        <item>Book store</item>
+        <item>Bowling alley</item>
+        <item>Bus station</item>
+        <item>Cafe</item>
+        <item>Campground</item>
+        <item>Car dealer</item>
+        <item>Car rental</item>
+        <item>Car repair</item>
+        <item>Car wash</item>
+        <item>Casino</item>
+        <item>Cemetery</item>
+        <item>Church</item>
+        <item>City hall</item>
+        <item>Clothing store</item>
+        <item>Convenience store</item>
+        <item>Courthouse</item>
+        <item>Dentist</item>
+        <item>Department store</item>
+        <item>Doctor</item>
+        <item>Drugstore</item>
+        <item>Electrician</item>
+        <item>Electronics store</item>
+        <item>Embassy</item>
+        <item>Fire station</item>
+        <item>Florist</item>
+        <item>Funeral home</item>
+        <item>Furniture store</item>
+        <item>Gas station</item>
+        <item>Grocery or supermarket</item>
+        <item>Gym</item>
+        <item>Hair care</item>
+        <item>Hardware store</item>
+        <item>Hindu temple</item>
+        <item>Home goods store</item>
+        <item>Hospital</item>
+        <item>Insurance agency</item>
+        <item>Jewelry store</item>
+        <item>Laundry</item>
+        <item>Lawyer</item>
+        <item>Library</item>
+        <item>Light rail station</item>
+        <item>Liquor store</item>
+        <item>Local government office</item>
+        <item>Locksmith</item>
+        <item>Lodging</item>
+        <item>Meal delivery</item>
+        <item>Meal takeaway</item>
+        <item>Mosque</item>
+        <item>Movie rental</item>
+        <item>Movie theater</item>
+        <item>Moving company</item>
+        <item>Museum</item>
+        <item>Night club</item>
+        <item>Painter</item>
+        <item>Park</item>
+        <item>Parking</item>
+        <item>Pet store</item>
+        <item>Pharmacy</item>
+        <item>Physiotherapist</item>
+        <item>Plumber</item>
+        <item>Police</item>
+        <item>Post office</item>
+        <item>Primary school</item>
+        <item>Real estate agency</item>
+        <item>Restaurant</item>
+        <item>Roofing contractor</item>
+        <item>Rv park</item>
+        <item>School</item>
+        <item>Secondary school</item>
+        <item>Shoe store</item>
+        <item>Shopping mall</item>
+        <item>Spa</item>
+        <item>Stadium</item>
+        <item>Storage</item>
+        <item>Store</item>
+        <item>Subway station</item>
+        <item>Supermarket</item>
+        <item>Synagogue</item>
+        <item>Taxi stand</item>
+        <item>Tourist attraction</item>
+        <item>Train station</item>
+        <item>Transit station</item>
+        <item>Travel agency</item>
+        <item>University</item>
+        <item>Veterinary care</item>
+        <item>Zoo</item>
     </string-array>
 </resources>

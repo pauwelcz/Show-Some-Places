@@ -28,10 +28,11 @@ class SearchFragment : Fragment() {
             ViewModelProviders.of(this).get(SearchViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_search, container, false)
 
-        val categoryArray = arrayOf("Doma", "Práce", "Osobní")
+        val poiArray = resources.getStringArray(R.array.array_points_of_interests)
+        // val categoryArray = arrayOf("Doma", "Práce", "Osobní")
         context?.let { context ->
             root.poi_spinner.adapter =
-                ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, categoryArray)
+                ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, poiArray)
 
             root.poi_spinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {

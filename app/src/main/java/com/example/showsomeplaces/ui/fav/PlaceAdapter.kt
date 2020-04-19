@@ -47,7 +47,6 @@ class PlaceAdapter: RecyclerView.Adapter<PlaceAdapter.NoteViewHolder>() {
             view.place_title_text_view.text = place.title
             view.poi_text_view.text = place.poi
             view.note_text_view.text = place.note
-            view.date_text_view.text = place.date.toPresentableDate()
             view.image_view.setImageBitmap(place.imageByteArray?.toBitmap())
         }
     }

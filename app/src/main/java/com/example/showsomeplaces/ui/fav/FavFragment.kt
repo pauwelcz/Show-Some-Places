@@ -16,7 +16,6 @@ import com.example.showsomeplaces.ui.detail.DetailActivity
 import com.example.showsomeplaces.util.PrefManager
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import kotlinx.android.synthetic.main.fragment_list.view.add_button
-import kotlinx.android.synthetic.main.fragment_list.view.home_button
 
 class FavFragment : Fragment() {
 
@@ -48,13 +47,6 @@ class FavFragment : Fragment() {
             add_button.setOnClickListener {
                 startActivityForResult(DetailActivity.newIntent(context), REQ_PLACE)
             }
-
-            //home_button.setOnClickListener {
-            //    activity?.let {
-            //        val intent = Intent(it, MainActivity::class.java)
-            //        it.startActivity(intent)
-             //   }
-            //}
         }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
