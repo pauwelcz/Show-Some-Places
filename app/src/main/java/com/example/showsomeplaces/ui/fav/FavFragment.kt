@@ -8,14 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.showsomeplaces.MainActivity
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.extension.toPresentableDate
 import com.example.showsomeplaces.model.Place
 import com.example.showsomeplaces.repository.PlaceRepository
 import com.example.showsomeplaces.ui.detail.DetailActivity
 import com.example.showsomeplaces.util.PrefManager
-import kotlinx.android.synthetic.main.activity_fav.view.*
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import kotlinx.android.synthetic.main.fragment_list.view.add_button
 import kotlinx.android.synthetic.main.fragment_list.view.home_button
@@ -51,12 +49,12 @@ class FavFragment : Fragment() {
                 startActivityForResult(DetailActivity.newIntent(context), REQ_PLACE)
             }
 
-            home_button.setOnClickListener {
-                activity?.let {
-                    val intent = Intent(it, MainActivity::class.java)
-                    it.startActivity(intent)
-                }
-            }
+            //home_button.setOnClickListener {
+            //    activity?.let {
+            //        val intent = Intent(it, MainActivity::class.java)
+            //        it.startActivity(intent)
+             //   }
+            //}
         }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
