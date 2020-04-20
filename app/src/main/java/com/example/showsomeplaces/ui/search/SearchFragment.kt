@@ -26,15 +26,14 @@ class SearchFragment : Fragment() {
         retainInstance = true
         searchViewModel =
             ViewModelProviders.of(this).get(SearchViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_search, container, false)
+        val view = inflater.inflate(R.layout.fragment_search, container, false)
 
-        val poiArray = resources.getStringArray(R.array.array_points_of_interests)
-        // val categoryArray = arrayOf("Doma", "Práce", "Osobní")
+        val unitArray = resources.getStringArray(R.array.array_units)
         context?.let { context ->
-            root.poi_spinner.adapter =
-                ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, poiArray)
+            view.unit_spiner.adapter =
+                ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, unitArray)
 
-            root.poi_spinner.onItemSelectedListener =
+            view.unit_spiner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
                     override fun onItemSelected(
@@ -45,6 +44,24 @@ class SearchFragment : Fragment() {
                     ) {}
                 }
         }
-        return root
+
+        val poiArray = resources.getStringArray(R.array.array_points_of_interests)
+
+        context?.let { context ->
+            view.poi_spinner.adapter =
+                ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, poiArray)
+
+            view.poi_spinner.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {}
+                }
+        }
+        return view
     }
 }

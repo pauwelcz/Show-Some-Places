@@ -24,6 +24,13 @@
     <string name="title_notifications">Notifications</string>
 
     <string name="map_key" translatable="false">AIzaSyB_qsP8AOP_P0MdlPz-48TDaJYjTP3vbjo</string>
+
+    <string-array name="array_units">
+        <item>Meters</item>
+        <item>Kilometers</item>
+        <item>Miles</item>
+    </string-array>
+
     <string-array name="array_points_of_interests">
         <item>Accounting</item>
         <item>Airport</item>
