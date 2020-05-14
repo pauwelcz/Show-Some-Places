@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.showsomeplaces.R
+import com.example.showsomeplaces.repository.PlaceRepository
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -16,6 +17,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 
 class HomeFragment : Fragment() {
+
+    private val placeRepository: PlaceRepository? by lazy { context?.let { PlaceRepository(it) } }
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -47,9 +50,27 @@ class HomeFragment : Fragment() {
             mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
             mMap.clear() //clear old markers
 
+            // adding my places to markers
+            val placesToMark = placeRepository?.getAllPlaces() ?: listOf()
+            for (i in placesToMark.indices) {
+                val latitude = placesToMark[i].latitude
+                val longitude = placesToMark[i].longitude
+                val title = placesToMark[i].title
+                val note = placesToMark[i].note
+                // mam to v try pro sichr kvuli tomu, ze jsem tam na zacatku vkladal spatne data, alespon, pokud to nezacnu mazat
+                try {
+                    mMap.addMarker(
+                        MarkerOptions().position(LatLng(latitude.toDouble(), longitude.toDouble()))
+                            .title(title)
+                            .snippet(note)
+                    )
+                }  catch (e: NumberFormatException) { null }
+
+
+            }
             val zeravice = LatLng(49.0145783,17.2379817)
             mMap.addMarker(
-                MarkerOptions().position(zeravice)
+                MarkerOptions().position(LatLng(49.0145783,17.2379817))
                     .title("Marker in Zeravice")
                     .icon(BitmapDescriptorFactory
                         .defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
@@ -58,17 +79,7 @@ class HomeFragment : Fragment() {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(zeravice, 15f))
             // CameraUpdateFactory.newLatLngZoom()
 
-            mMap.addMarker(
-                MarkerOptions()
-                    .position(LatLng(37.4629101, -122.2449094))
-                    .title("Iron Man")
-                    .snippet("His Talent : Plenty of money")
-            )
-            mMap.addMarker(
-                MarkerOptions()
-                    .position(LatLng(37.3092293, -122.1136845))
-                    .title("Captain America")
-            )
+
         }
 
         return view

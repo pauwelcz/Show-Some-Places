@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.extension.toBitmap
-import com.example.showsomeplaces.extension.toPresentableDate
 import com.example.showsomeplaces.model.Place
 import kotlinx.android.synthetic.main.item_place.view.*
 
@@ -30,8 +29,8 @@ class PlaceAdapter: RecyclerView.Adapter<PlaceAdapter.NoteViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun deletePlace(place: Place) {
-        places.add(place)
+    fun deletePlace(position: Int) {
+        places.removeAt(position)
         notifyDataSetChanged()
     }
 
@@ -42,7 +41,6 @@ class PlaceAdapter: RecyclerView.Adapter<PlaceAdapter.NoteViewHolder>() {
     }
 
     inner class NoteViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
-
         fun bind(place: Place) {
             view.place_title_text_view.text = place.title
             view.poi_text_view.text = place.poi
