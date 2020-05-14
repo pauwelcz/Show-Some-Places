@@ -4,19 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.my_places.MyPlacesFragment">
 
-    <TextView
-        android:id="@+id/text_my_places"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fav_places_list"
         android:layout_width="match_parent"
+        android:layout_marginTop="16dp"
+        android:layout_height="match_parent"/>
+
+
+    <Button
+        android:id="@+id/add_place_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:layout_marginBottom="64dp"
+        android:layout_marginRight="24dp"
+        android:src="@drawable/ic_add_black_24dp"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Add place"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

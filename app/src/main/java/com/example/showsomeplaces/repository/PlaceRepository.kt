@@ -14,4 +14,12 @@ class PlaceRepository(private val context: Context) {
     }
 
     fun getAllPlaces(): List<Place> = placeDao.getAllPlaces()
+
+    fun deletePlace(place: Place) {
+        placeDao.delete(place)
+    }
+
+    fun updatePlace(place: Place) {
+        placeDao.update(place)
+    }
 }

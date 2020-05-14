@@ -1,23 +1,28 @@
 package com.example.showsomeplaces.ui.home
 
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.example.showsomeplaces.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    companion object {
+        fun newInstance(): HomeFragment {
+            return HomeFragment()
+        }
+    }
+    private lateinit var lastLocation: Location
     private lateinit var mMap: GoogleMap
 
     fun MapFragment() {
@@ -33,9 +38,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment? //use SuppoprtMapFragment for using in fragment instead of activity  MapFragment = activity   SupportMapFragment = fragment
@@ -44,13 +47,16 @@ class HomeFragment : Fragment() {
             mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
             mMap.clear() //clear old markers
 
-
-            val sydney = LatLng(-33.852, 151.211)
+            val zeravice = LatLng(49.0145783,17.2379817)
             mMap.addMarker(
-                MarkerOptions().position(sydney)
-                    .title("Marker in Sydney")
+                MarkerOptions().position(zeravice)
+                    .title("Marker in Zeravice")
+                    .icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
             )
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+            // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(CameraUpdateFactory.newLatLng(zeravice), 14.0f))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(zeravice, 15f))
+            // CameraUpdateFactory.newLatLngZoom()
 
             mMap.addMarker(
                 MarkerOptions()
@@ -65,6 +71,6 @@ class HomeFragment : Fragment() {
             )
         }
 
-        return root
+        return view
     }
 }

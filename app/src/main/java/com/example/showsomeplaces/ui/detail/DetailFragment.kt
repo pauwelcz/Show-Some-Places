@@ -107,10 +107,11 @@ class DetailFragment : Fragment() {
             }
         }
 
-        val categoryArray = arrayOf("Doma", "Práce", "Osobní")
+        val poiArray = resources.getStringArray(R.array.array_points_of_interests)
+        // val categoryArray = arrayOf("Doma", "Práce", "Osobní")
         context?.let { context ->
             view.category_spinner.adapter =
-                ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, categoryArray)
+                ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, poiArray)
 
             view.category_spinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -121,7 +122,7 @@ class DetailFragment : Fragment() {
                         position: Int,
                         id: Long
                     ) {
-                        place = place.copy(poi = categoryArray[position])
+                        place = place.copy(poi = poiArray[position])
                     }
                 }
         }

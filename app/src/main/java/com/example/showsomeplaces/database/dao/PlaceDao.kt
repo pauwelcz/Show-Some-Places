@@ -1,9 +1,6 @@
 package com.example.showsomeplaces.database.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.showsomeplaces.model.Place
 
 @Dao
@@ -15,4 +12,9 @@ interface PlaceDao {
     @Query("SELECT * FROM place")
     fun getAllPlaces(): List<Place>
 
+    @Delete
+    fun delete(place: Place)
+
+    @Update
+    fun update(place: Place)
 }

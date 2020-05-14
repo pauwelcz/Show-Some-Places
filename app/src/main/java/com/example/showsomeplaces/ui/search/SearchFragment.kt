@@ -6,17 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TextView
+import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProviders
 import com.example.showsomeplaces.R
-import kotlinx.android.synthetic.main.fragment_detail.view.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
 
 class SearchFragment : Fragment() {
-    private lateinit var searchViewModel: SearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,8 +20,6 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         retainInstance = true
-        searchViewModel =
-            ViewModelProviders.of(this).get(SearchViewModel::class.java)
         val view = inflater.inflate(R.layout.fragment_search, container, false)
 
         val unitArray = resources.getStringArray(R.array.array_units)
@@ -61,6 +55,12 @@ class SearchFragment : Fragment() {
                         id: Long
                     ) {}
                 }
+        }
+
+        val searchButton = view.findViewById(R.id.search_button) as Button
+// set on-click listener
+        searchButton.setOnClickListener {
+            Toast.makeText(context, "You clicked me.", Toast.LENGTH_SHORT).show()
         }
         return view
     }
