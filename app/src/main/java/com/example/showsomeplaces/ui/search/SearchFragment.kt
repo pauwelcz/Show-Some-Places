@@ -1,5 +1,6 @@
 package com.example.showsomeplaces.ui.search
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,9 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.showsomeplaces.R
+import com.example.showsomeplaces.ui.founded.FoundedActivity
 import kotlinx.android.synthetic.main.fragment_search.view.*
+
 
 class SearchFragment : Fragment() {
 
@@ -21,7 +24,6 @@ class SearchFragment : Fragment() {
     ): View? {
         retainInstance = true
         val view = inflater.inflate(R.layout.fragment_search, container, false)
-
         val unitArray = resources.getStringArray(R.array.array_units)
         context?.let { context ->
             view.unit_spiner.adapter =
@@ -61,6 +63,8 @@ class SearchFragment : Fragment() {
 // set on-click listener
         searchButton.setOnClickListener {
             Toast.makeText(context, "You clicked me.", Toast.LENGTH_SHORT).show()
+            val intent = Intent (context, FoundedActivity::class.java)
+            startActivity(intent)
         }
         return view
     }

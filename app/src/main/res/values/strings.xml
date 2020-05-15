@@ -17,6 +17,7 @@
     <string name="longitute">Longitude</string>
     <string name="add_photo">Add Photo*</string>
     <string name="add_note">Note</string>
+    <string name="update_place">Update place</string>
     <string name="save_place">Save place</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
