@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_place.view.*
 
 
 
-class PlaceAdapter: RecyclerView.Adapter<PlaceAdapter.NoteViewHolder>() {
+class PlaceAdapter(): RecyclerView.Adapter<PlaceAdapter.NoteViewHolder>() {
     private val places: MutableList<Place> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
