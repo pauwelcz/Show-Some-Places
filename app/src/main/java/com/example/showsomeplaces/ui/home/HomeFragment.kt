@@ -59,16 +59,20 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         // Add a marker in Sydney and move the camera
 
         val yourCurrentLocation = LatLng(49.0145783,17.2379817)
-        mMap.addMarker(MarkerOptions()
+        mMap.addMarker(
+            MarkerOptions()
             .position(yourCurrentLocation)
             .title("Your current location")
             .icon(
                 BitmapDescriptorFactory
                 .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
             )
-        )
+        ).showInfoWindow()
         mMap.moveCamera(CameraUpdateFactory.newLatLng(yourCurrentLocation))
 
+        /*
+            Nastavim, abych na to vubec klikal
+         */
         mMap.setOnMarkerClickListener(this);
     }
 
