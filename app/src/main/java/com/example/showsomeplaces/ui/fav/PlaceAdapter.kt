@@ -11,6 +11,8 @@ import com.example.showsomeplaces.model.Place
 import kotlinx.android.synthetic.main.item_place.view.*
 
 
+
+
 class PlaceAdapter: RecyclerView.Adapter<PlaceAdapter.NoteViewHolder>() {
     private val places: MutableList<Place> = mutableListOf()
 
@@ -33,6 +35,8 @@ class PlaceAdapter: RecyclerView.Adapter<PlaceAdapter.NoteViewHolder>() {
 
     fun deletePlace(place: Place) {
         places.remove(place)
+        // placeRepository?.deleteAll()
+        // notifyItemRemoved(place.id.toInt())
         notifyDataSetChanged()
     }
 
@@ -43,7 +47,7 @@ class PlaceAdapter: RecyclerView.Adapter<PlaceAdapter.NoteViewHolder>() {
     }
 
     inner class NoteViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
-        val deleteButton = view.findViewById(R.id.note_delete_button) as ImageButton
+        private val deleteButton = view.findViewById(R.id.note_delete_button) as ImageButton
         val editButton = view.findViewById(R.id.note_edit_button) as ImageButton
 
         fun bind(place: Place) {

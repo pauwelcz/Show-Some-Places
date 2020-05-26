@@ -15,6 +15,9 @@ interface PlaceDao {
     @Delete
     fun delete(place: Place)
 
+    @Query("DELETE FROM place WHERE id = :id")
+    fun deleteById(id: Long)
+
     @Update
     fun update(place: Place)
 }

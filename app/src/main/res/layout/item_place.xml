@@ -12,6 +12,8 @@
         android:id="@+id/image_view"
         android:layout_width="64dp"
         android:layout_height="64dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,28 +49,48 @@
         tools:text="Poznámka" />
 
     <ImageButton
+        android:id="@+id/note_place_button"
+        android:layout_width="@dimen/image_button"
+        android:layout_height="@dimen/image_button"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/ic_place_black_24dp"
+        app:layout_constraintEnd_toStartOf="@id/note_edit_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Edit"
+        />
+
+    <ImageButton
         android:id="@+id/note_edit_button"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="@dimen/image_button"
+        android:layout_height="@dimen/image_button"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/ic_edit_black_24dp"
         app:layout_constraintEnd_toStartOf="@id/note_delete_button"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="Edit" />
+        android:text="Show place" />
 
     <ImageButton
         android:id="@+id/note_delete_button"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="@dimen/image_button"
+        android:layout_height="@dimen/image_button"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="24dp"
         android:background="@drawable/ic_delete_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
     />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_margin="8dp"
+        android:background="@android:color/darker_gray"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@id/note_text_view"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 

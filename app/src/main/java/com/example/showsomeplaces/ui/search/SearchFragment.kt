@@ -64,8 +64,12 @@ class SearchFragment : Fragment() {
         searchButton.setOnClickListener {
             Toast.makeText(context, "You clicked me.", Toast.LENGTH_SHORT).show()
             val intent = Intent (context, FoundedActivity::class.java)
+
             startActivity(intent)
         }
+        // toto je google place apicko
+        // https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant|atm&keyword=cruise&key=AIzaSyCyk1JhB3_EmxLiC7bs3_knIBuEqOUK_1I
         return view
     }
+
 }

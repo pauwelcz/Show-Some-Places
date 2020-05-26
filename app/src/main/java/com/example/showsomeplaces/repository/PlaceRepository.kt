@@ -19,6 +19,10 @@ class PlaceRepository(private val context: Context) {
         placeDao.delete(place)
     }
 
+    fun deleteById(id: Long) {
+        placeDao.deleteById(id)
+    }
+
     fun updatePlace(place: Place) {
         placeDao.update(place)
     }
