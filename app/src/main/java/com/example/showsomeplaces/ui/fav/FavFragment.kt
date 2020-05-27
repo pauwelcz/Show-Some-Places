@@ -15,11 +15,10 @@ import com.example.showsomeplaces.repository.PlaceRepository
 import com.example.showsomeplaces.ui.detail.DetailActivity
 import com.example.showsomeplaces.util.PrefManager
 import kotlinx.android.synthetic.main.fragment_list.view.*
-import kotlinx.android.synthetic.main.fragment_list.view.add_button
 
 class FavFragment : Fragment() {
 
-    private val adapter = PlaceAdapter()
+    private val adapter: PlaceAdapter? by lazy { context?.let { PlaceAdapter(it) } }
     private val prefManager: PrefManager? by lazy {
         context?.let { PrefManager(it) }
     }
@@ -41,7 +40,7 @@ class FavFragment : Fragment() {
             recycler_view.layoutManager = LinearLayoutManager(context)
 
             val places = placeRepository?.getAllPlaces() ?: listOf()
-            adapter.submitList(places)
+            adapter?.submitList(places)
             recycler_view.adapter = adapter
 
             add_button.setOnClickListener {
@@ -57,7 +56,7 @@ class FavFragment : Fragment() {
         when (requestCode) {
             REQ_PLACE -> {
                 val place = data?.getParcelableExtra<Place>(DetailActivity.ARG_PLACE) ?: return
-                adapter.addPlace(place)
+                adapter?.addPlace(place)
 
                 placeRepository?.insertPlace(place)
             }

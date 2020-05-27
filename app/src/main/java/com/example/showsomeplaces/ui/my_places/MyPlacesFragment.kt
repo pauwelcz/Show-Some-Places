@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_my_places.view.*
 
 class MyPlacesFragment : Fragment() {
 
-    private val adapter = PlaceAdapter()
+    private val adapter: PlaceAdapter? by lazy { context?.let { PlaceAdapter(it) } }
     private val prefManager: PrefManager? by lazy {
         context?.let { PrefManager(it) }
     }
@@ -38,7 +38,7 @@ class MyPlacesFragment : Fragment() {
             fav_places_list.layoutManager = LinearLayoutManager(context)
 
             val places = placeRepository?.getAllPlaces() ?: listOf()
-            adapter.submitList(places)
+            adapter?.submitList(places)
 
             fav_places_list.adapter = adapter
             add_place_button.setOnClickListener {
@@ -54,7 +54,7 @@ class MyPlacesFragment : Fragment() {
         when (requestCode) {
             REQ_PLACE -> {
                 val place = data?.getParcelableExtra<Place>(DetailActivity.ARG_PLACE) ?: return
-                adapter.addPlace(place)
+                adapter?.addPlace(place)
 
                 placeRepository?.insertPlace(place)
             }

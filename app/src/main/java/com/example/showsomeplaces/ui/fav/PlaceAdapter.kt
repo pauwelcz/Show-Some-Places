@@ -1,5 +1,6 @@
 package com.example.showsomeplaces.ui.fav
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.extension.toBitmap
 import com.example.showsomeplaces.model.Place
+import com.example.showsomeplaces.repository.PlaceRepository
 import kotlinx.android.synthetic.main.item_place.view.*
 
 
 
-
-class PlaceAdapter(): RecyclerView.Adapter<PlaceAdapter.NoteViewHolder>() {
+class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdapter.NoteViewHolder>() {
     private val places: MutableList<Place> = mutableListOf()
+    private val placeRepository: PlaceRepository? by lazy { PlaceRepository(context) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_place, parent, false)
@@ -35,6 +37,7 @@ class PlaceAdapter(): RecyclerView.Adapter<PlaceAdapter.NoteViewHolder>() {
 
     fun deletePlace(place: Place) {
         places.remove(place)
+        placeRepository?.deletePlace(place)
         // placeRepository?.deleteAll()
         // notifyItemRemoved(place.id.toInt())
         notifyDataSetChanged()
