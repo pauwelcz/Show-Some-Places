@@ -2,7 +2,6 @@ package com.example.showsomeplaces.ui.detail
 
 // import com.example.showsomeplaces.repository.UserRepository
 import android.app.Activity
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -19,13 +18,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.extension.toByteArray
-import com.example.showsomeplaces.extension.toPresentableDate
 import com.example.showsomeplaces.model.Place
 import com.example.showsomeplaces.model.REQUEST_CAMERA_PERMISSION
 import com.example.showsomeplaces.model.REQUEST_IMAGE_CAPTURE
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_detail.view.*
-import java.util.*
 
 class DetailFragment : Fragment() {
 
@@ -91,29 +88,6 @@ class DetailFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
-
-        // ukladam date
-        view.date_text_view.text = System.currentTimeMillis().toPresentableDate()
-        context?.let { context ->
-            view.date_text_view.setOnClickListener {
-                DatePickerDialog(
-                    context,
-                    DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                        val dateMillis = Calendar.getInstance().apply {
-                            set(Calendar.YEAR, year)
-                            set(Calendar.MONTH, month)
-                            set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        }.timeInMillis
-
-                        place = place.copy(date = dateMillis)
-                        view.date_text_view.text = dateMillis.toPresentableDate()
-                    },
-                    Calendar.getInstance().get(Calendar.YEAR),
-                    Calendar.getInstance().get(Calendar.MONTH),
-                    Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-                ).show()
-            }
-        }
 
         val poiArray = resources.getStringArray(R.array.array_points_of_interests)
         // val categoryArray = arrayOf("Doma", "Práce", "Osobní")
