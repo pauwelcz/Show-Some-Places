@@ -1,5 +1,6 @@
 package com.example.showsomeplaces.ui.detail
 
+// import com.example.showsomeplaces.repository.UserRepository
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -22,7 +23,7 @@ import com.example.showsomeplaces.extension.toPresentableDate
 import com.example.showsomeplaces.model.Place
 import com.example.showsomeplaces.model.REQUEST_CAMERA_PERMISSION
 import com.example.showsomeplaces.model.REQUEST_IMAGE_CAPTURE
-// import com.example.showsomeplaces.repository.UserRepository
+import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_detail.view.*
 import java.util.*
 
@@ -40,10 +41,17 @@ class DetailFragment : Fragment() {
         retainInstance = true
         val view = inflater.inflate(R.layout.fragment_detail, container, false)
 
+        view.save_button.isEnabled = false;
         // ukladam title
         view.title_edit_text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                place = place.copy(title = s.toString())
+                /*
+                    Save button is disabled until string with places is not empty
+                */
+                if(s.toString().trim().isNotEmpty()){
+                    place = place.copy(title = s.toString())
+                    save_button.isEnabled = true;
+                }
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
