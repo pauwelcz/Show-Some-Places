@@ -110,12 +110,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             val longitude = placesToMark[i].longitude
             val title = placesToMark[i].title
             val note = placesToMark[i].note
+            val poi = placesToMark[i].poi
             // mam to v try pro sichr kvuli tomu, ze jsem tam na zacatku vkladal spatne data, alespon, pokud to nezacnu mazat
             try {
                 googleMap.addMarker(
                     MarkerOptions().position(LatLng(latitude.toDouble(), longitude.toDouble()))
                         .title(title)
-                        .snippet(note)
+                        .snippet(poi)
                 )
             }  catch (e: NumberFormatException) { null }
 
@@ -127,7 +128,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     override fun onMarkerClick(p0: Marker?): Boolean {
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(p0?.position, 15.0f))
         p0?.showInfoWindow()
-        Toast.makeText(context, "MARKER CLICKED", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "For whole map just click again on Home icon.", Toast.LENGTH_LONG).show()
         return true
     }
 
