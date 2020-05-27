@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.extension.toBitmap
@@ -51,7 +52,8 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
 
     inner class NoteViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
         private val deleteButton = view.findViewById(R.id.note_delete_button) as ImageButton
-        val editButton = view.findViewById(R.id.note_edit_button) as ImageButton
+        private val editButton = view.findViewById(R.id.note_edit_button) as ImageButton
+        private val placeButton = view.findViewById(R.id.note_place_button) as ImageButton
 
         fun bind(place: Place) {
             view.place_title_text_view.text = place.title
@@ -59,9 +61,27 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
             view.note_text_view.text = place.note
             view.image_view.setImageBitmap(place.imageByteArray?.toBitmap())
 
+            /*
+                Deleting place (also from database)
+             */
             deleteButton.setOnClickListener {
                 deletePlace(place)
-                println(place.id)
+                val toastMessage: String = "Place \"" + place.title + "\" deleted."
+                Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT).show()
+            }
+
+            /*
+                Editing place
+             */
+            editButton.setOnClickListener {
+                Toast.makeText(context, "You clicked edit button", Toast.LENGTH_SHORT).show()
+            }
+
+            /*
+                animate place on map
+             */
+            placeButton.setOnClickListener {
+                Toast.makeText(context, "You clicked place button", Toast.LENGTH_SHORT).show()
             }
         }
     }
