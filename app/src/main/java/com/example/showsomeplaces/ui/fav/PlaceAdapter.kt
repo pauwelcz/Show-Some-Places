@@ -63,7 +63,10 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
             view.place_title_text_view.text = place.title
             view.poi_text_view.text = place.poi
             view.note_text_view.text = place.note
-            view.image_view.setImageBitmap(place.imageByteArray?.toBitmap())
+            if (place.imageByteArray != null) {
+                view.image_view.setImageBitmap(place.imageByteArray?.toBitmap())
+            }
+
 
             /*
                 Deleting place (also from database)

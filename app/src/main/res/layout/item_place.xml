@@ -15,6 +15,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/ic_photo_black_24dp"
         app:layout_constraintTop_toTopOf="parent" />
 
 
