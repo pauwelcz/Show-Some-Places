@@ -5,9 +5,9 @@
     <string name="add_activity_string"><b>Search Place(s)</b></string>
     <string name="fav_activity_string"><b>My Places</b></string>
 
-    <string name="search_select_range">Select range:</string>
-    <string name="search_select_poi">Select point of interest(s):</string>
-    <string name="search_select_range_unit">Select range unit:</string>
+    <string name="search_select_range">Range:</string>
+    <string name="search_select_poi">Point(s) of interest:</string>
+    <string name="search_select_range_unit">Range unit:</string>
     <string name="search_button">Search</string>
 
     <string name="app_title">Show Some Places</string>

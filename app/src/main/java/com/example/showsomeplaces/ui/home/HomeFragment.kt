@@ -1,13 +1,18 @@
 package com.example.showsomeplaces.ui.home
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.repository.PlaceRepository
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -18,23 +23,24 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 
-class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener  {
 
     private val placeRepository: PlaceRepository? by lazy { context?.let { PlaceRepository(it) } }
 
     companion object {
-        var mapFragment: SupportMapFragment?=null
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        lateinit var mapFragment: SupportMapFragment
         fun newInstance(): HomeFragment {
             return HomeFragment()
         }
     }
-    private val REQUEST_LOCATION_PERMISSION = 1
-    private lateinit var mMap: GoogleMap
 
-    fun MapFragment() {
-        // Required empty public constructor
-    }
+    private lateinit var googleMap: GoogleMap
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var lastLocation: Location
+    private val REQUEST_PERMISSIONS = 100
+
+
+    // private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,19 +53,22 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         mapFragment?.getMapAsync(this)
 
 
+
         return view
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
         //
-        mMap = googleMap!!
-        mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-        mMap.clear() //clear old markers
+        this@HomeFragment.googleMap = googleMap!!
+        googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+            // googleMap.setMyLocationEnabled(true);
+        googleMap.clear() //clear old markers
+
         seedMarkersFromDB()
         // Add a marker in Sydney and move the camera
 
         val yourCurrentLocation = LatLng(49.0145783,17.2379817)
-        mMap.addMarker(
+        googleMap.addMarker(
             MarkerOptions()
             .position(yourCurrentLocation)
             .title("Your current location")
@@ -68,16 +77,30 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
                 .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
             )
         ).showInfoWindow()
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(yourCurrentLocation))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(yourCurrentLocation))
 
         /*
             Nastavim, abych na to vubec klikal
          */
-        mMap.setOnMarkerClickListener(this);
+        googleMap.setOnMarkerClickListener(this)
+
+        if (activity?.let { ActivityCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) } != PackageManager.PERMISSION_GRANTED && getActivity()?.let {
+                ActivityCompat.checkSelfPermission(
+                    it, Manifest.permission.ACCESS_COARSE_LOCATION)
+            } != PackageManager.PERMISSION_GRANTED) {
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        googleMap.isMyLocationEnabled = true
+
     }
 
     /*
-        adding markers
+        adding markers from database
      */
     private fun seedMarkersFromDB(): Boolean {
         // adding my places to markers
@@ -89,7 +112,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             val note = placesToMark[i].note
             // mam to v try pro sichr kvuli tomu, ze jsem tam na zacatku vkladal spatne data, alespon, pokud to nezacnu mazat
             try {
-                mMap.addMarker(
+                googleMap.addMarker(
                     MarkerOptions().position(LatLng(latitude.toDouble(), longitude.toDouble()))
                         .title(title)
                         .snippet(note)
@@ -102,7 +125,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(p0?.position, 15.0f))
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(p0?.position, 15.0f))
         p0?.showInfoWindow()
         Toast.makeText(context, "MARKER CLICKED", Toast.LENGTH_LONG).show()
         return true

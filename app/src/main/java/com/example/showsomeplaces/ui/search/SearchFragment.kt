@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.showsomeplaces.R
@@ -59,9 +58,9 @@ class SearchFragment : Fragment() {
                 }
         }
 
-        val searchButton = view.findViewById(R.id.search_button) as Button
+        // val searchButton = view.findViewById(R.id.search_button) as Button
 // set on-click listener
-        searchButton.setOnClickListener {
+        view.search_button.setOnClickListener {
             Toast.makeText(context, "You clicked me.", Toast.LENGTH_SHORT).show()
             val intent = Intent (context, FoundedActivity::class.java)
 
