@@ -14,4 +14,5 @@
         android:layout_height="fill_parent"
         tools:context="com.example.mapwithmarker.MapsMarkerActivity"
         tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

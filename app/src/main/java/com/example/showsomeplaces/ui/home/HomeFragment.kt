@@ -53,7 +53,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         mapFragment?.getMapAsync(this)
 
 
-
         return view
     }
 
@@ -77,8 +76,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
                 .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
             )
         ).showInfoWindow()
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(yourCurrentLocation))
-
         /*
             Nastavim, abych na to vubec klikal
          */
