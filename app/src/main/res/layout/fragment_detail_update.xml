@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -112,26 +119,25 @@
             android:layout_height="64dp"
             android:layout_marginEnd="16dp" />
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_gravity="center_vertical"
             android:background="@color/colorPrimary"
-            android:text="@string/add_photo" />
+            android:src="@drawable/ic_camera_alt_black_24dp"/>
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/update_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_gravity="center_vertical"
             android:background="@color/colorPrimary"
-            android:text="@string/update_place" />
+            android:src="@drawable/ic_save_black_24dp"/>
     </LinearLayout>
-
-
 </LinearLayout>
+</ScrollView>

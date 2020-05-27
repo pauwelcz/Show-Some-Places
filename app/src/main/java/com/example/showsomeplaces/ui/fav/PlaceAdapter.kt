@@ -14,7 +14,6 @@ import com.example.showsomeplaces.repository.PlaceRepository
 import kotlinx.android.synthetic.main.item_place.view.*
 
 
-
 class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdapter.NoteViewHolder>() {
     private val places: MutableList<Place> = mutableListOf()
     private val placeRepository: PlaceRepository? by lazy { PlaceRepository(context) }
@@ -28,7 +27,12 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         holder.bind(places[position])
-
+/*
+                Editing place
+             */
+        holder.editButton.setOnClickListener {
+            Toast.makeText(context, "You clicked edit button", Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun addPlace(place: Place) {
@@ -52,7 +56,7 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
 
     inner class NoteViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
         private val deleteButton = view.findViewById(R.id.note_delete_button) as ImageButton
-        private val editButton = view.findViewById(R.id.note_edit_button) as ImageButton
+        val editButton = view.findViewById(R.id.note_edit_button) as ImageButton
         private val placeButton = view.findViewById(R.id.note_place_button) as ImageButton
 
         fun bind(place: Place) {
@@ -70,12 +74,7 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
                 Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT).show()
             }
 
-            /*
-                Editing place
-             */
-            editButton.setOnClickListener {
-                Toast.makeText(context, "You clicked edit button", Toast.LENGTH_SHORT).show()
-            }
+
 
             /*
                 animate place on map
