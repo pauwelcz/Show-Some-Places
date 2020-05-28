@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.showsomeplaces.MainActivity
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.model.Place
 import com.example.showsomeplaces.repository.PlaceRepository
@@ -37,12 +38,21 @@ class MyPlacesFragment : Fragment() {
         inflater.inflate(R.layout.fragment_my_places, container, false).apply {
             fav_places_list.layoutManager = LinearLayoutManager(context)
 
+
+            // Nactu si soucasnou polohu pro ulozeni
+            val currentLatitude = (activity as MainActivity).currentLatitude
+            val currentLongitude = (activity as MainActivity).currentLongitude
+
             val places = placeRepository?.getAllPlaces() ?: listOf()
             adapter?.submitList(places)
 
+
             fav_places_list.adapter = adapter
             add_place_button.setOnClickListener {
-                startActivityForResult(DetailActivity.newIntent(context), REQ_PLACE)
+                val intent = Intent(requireContext(), DetailActivity::class.java)
+                intent.putExtra("CURRENT_LATITUDE", currentLatitude)
+                intent.putExtra("CURRENT_LONGITUDE", currentLongitude)
+                startActivityForResult(intent, REQ_PLACE)
             }
         }
 

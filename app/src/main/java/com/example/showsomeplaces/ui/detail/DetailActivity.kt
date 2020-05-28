@@ -8,6 +8,8 @@ import com.example.showsomeplaces.R
 
 class DetailActivity : AppCompatActivity() {
 
+    public var currentLatitude = "0.0"
+    public var currentLongitude = "0.0"
     companion object {
         const val ARG_PLACE = "arg_place"
 
@@ -17,6 +19,9 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_single_container)
+
+        currentLatitude = intent.getStringExtra("CURRENT_LATITUDE")
+        currentLongitude = intent.getStringExtra("CURRENT_LONGITUDE")
 
         if (savedInstanceState == null) {
             val fragment = DetailFragment()

@@ -51,8 +51,15 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
-    public fun getHelloWorld(): String {
-        return myString
+    override fun onResume() {
+        super.onResume()
+        getLastLocation()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        getLastLocation()
+
     }
 
     @SuppressLint("MissingPermission")
@@ -88,7 +95,7 @@ class MainActivity : AppCompatActivity() {
         mLocationRequest.numUpdates = 1
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        mFusedLocationClient!!.requestLocationUpdates(
+        mFusedLocationClient.requestLocationUpdates(
             mLocationRequest, mLocationCallback,
             Looper.myLooper()
         )

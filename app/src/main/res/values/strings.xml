@@ -10,6 +10,7 @@
     <string name="search_select_range_unit">Range unit:</string>
     <string name="search_button">Search</string>
 
+    <string name="required_field">Required field.</string>
     <string name="app_title">Show Some Places</string>
     <string name="date">Date</string>
     <string name="poi">Point of View Type</string>

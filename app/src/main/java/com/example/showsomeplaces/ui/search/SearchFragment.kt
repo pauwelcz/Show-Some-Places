@@ -34,7 +34,6 @@ class SearchFragment : Fragment() {
 
         view.search_button.isEnabled = false
 
-        val promena = (activity as MainActivity).getHelloWorld()
         val currentLatitude = (activity as MainActivity).currentLatitude
         val currentLongitude = (activity as MainActivity).currentLongitude
 

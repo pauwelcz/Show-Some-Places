@@ -38,8 +38,14 @@ class DetailFragment : Fragment() {
         retainInstance = true
         val view = inflater.inflate(R.layout.fragment_detail, container, false)
 
-        view.save_button.isEnabled = false;
+        view.save_button.isEnabled = false
+
+        val currentLatitude = (activity as DetailActivity).currentLatitude
+        val currentLongitude = (activity as DetailActivity).currentLongitude
         // ukladam title
+        view.latitude_edit_text.setText(currentLatitude)
+        view.longitude_edit_text.setText(currentLongitude)
+
         view.title_edit_text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 /*
