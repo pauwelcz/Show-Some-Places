@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.showsomeplaces.MainActivity
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.ui.founded.FoundedActivity
 import kotlinx.android.synthetic.main.fragment_search.*
@@ -31,7 +32,12 @@ class SearchFragment : Fragment() {
         retainInstance = true
         val view = inflater.inflate(R.layout.fragment_search, container, false)
 
-        view.search_button.isEnabled = false;
+        view.search_button.isEnabled = false
+
+        val promena = (activity as MainActivity).getHelloWorld()
+        val currentLatitude = (activity as MainActivity).currentLatitude
+        val currentLongitude = (activity as MainActivity).currentLongitude
+
         val unitArray = resources.getStringArray(R.array.array_units)
         context?.let { context ->
             view.unit_spiner.adapter =
@@ -52,11 +58,12 @@ class SearchFragment : Fragment() {
 
         }
 
+        // view.edit_select_range.setText("298")
         view.edit_select_range.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if(s.toString().trim().isNotEmpty()){
                     range = s.toString()
-                    search_button.isEnabled = true;
+                    search_button.isEnabled = true
                 }
             }
 
@@ -96,7 +103,7 @@ class SearchFragment : Fragment() {
             val getMetersValue = getMeters(unit, range)
 
             val getPoiForRequest = getProperlyPOI(poi)
-            Toast.makeText(context, getPoiForRequest.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, currentLatitude, Toast.LENGTH_SHORT).show()
             val intent = Intent (context, FoundedActivity::class.java)
 
             startActivity(intent)
