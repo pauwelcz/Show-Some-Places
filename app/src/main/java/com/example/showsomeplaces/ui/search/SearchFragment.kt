@@ -101,8 +101,8 @@ class SearchFragment : Fragment() {
             * */
             val getMetersValue = getMeters(unit, range)
 
-            val getPoiForRequest = getProperlyPOI(poi)
-            Toast.makeText(context, currentLatitude, Toast.LENGTH_SHORT).show()
+            val nearbyPlacesAddress = getRequestAddress(currentLatitude, currentLongitude, getMetersValue.toString(), getProperlyPOI(poi))
+            Toast.makeText(context, nearbyPlacesAddress, Toast.LENGTH_SHORT).show()
             val intent = Intent (context, FoundedActivity::class.java)
 
             startActivity(intent)
@@ -131,12 +131,12 @@ class SearchFragment : Fragment() {
             }
         }
     }
-
     /*
         Creating request
      */
-    private fun getRequestAddress(size: String, poi: String): String {
-        return "Hello World"
+    private fun getRequestAddress(latitude: String, longitude: String, poi: String, size: String): String {
+
+        return "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$latitude,$longitude&radius=$size&type=$poi&key=AIzaSyCyk1JhB3_EmxLiC7bs3_knIBuEqOUK_1I"
     }
 
 }
