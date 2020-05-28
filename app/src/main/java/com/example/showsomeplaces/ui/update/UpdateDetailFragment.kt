@@ -1,4 +1,4 @@
-package com.example.showsomeplaces.ui.detail
+package com.example.showsomeplaces.ui.update
 
 // import com.example.showsomeplaces.repository.UserRepository
 import android.app.Activity
@@ -35,9 +35,14 @@ class UpdateDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         retainInstance = true
-        val view = inflater.inflate(R.layout.fragment_detail, container, false)
+        val view = inflater.inflate(R.layout.fragment_detail_update, container, false)
 
+        val title = (activity as UpdateActivity).title
+        val latitude = (activity as UpdateActivity).latitude
+        val longitude = (activity as UpdateActivity).longitude
         // ukladam title
+
+        view.title_edit_text.setText(title)
         view.title_edit_text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 place = place.copy(title = s.toString())
@@ -49,6 +54,7 @@ class UpdateDetailFragment : Fragment() {
         })
 
         // ukladam latitude
+        view.latitude_edit_text.setText(latitude)
         view.latitude_edit_text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 place = place.copy(latitude = s.toString())
@@ -60,6 +66,7 @@ class UpdateDetailFragment : Fragment() {
         })
 
         // ukladam longitude
+        view.longitude_edit_text.setText(longitude)
         view.longitude_edit_text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 place = place.copy(longitude = s.toString())
@@ -82,7 +89,7 @@ class UpdateDetailFragment : Fragment() {
         })
 
         val poiArray = resources.getStringArray(R.array.array_points_of_interests)
-        // val categoryArray = arrayOf("Doma", "Práce", "Osobní")
+
         context?.let { context ->
             view.category_spinner.adapter =
                 ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, poiArray)
@@ -102,9 +109,9 @@ class UpdateDetailFragment : Fragment() {
         }
 
 
-        view.update_button.setOnClickListener {
+        view.save_button.setOnClickListener {
             val intent = Intent()
-            intent.putExtra(DetailActivity.ARG_PLACE, place)
+            intent.putExtra(UpdateActivity.ARG_PLACE, place)
 
             activity?.setResult(Activity.RESULT_OK, intent)
             activity?.finish()

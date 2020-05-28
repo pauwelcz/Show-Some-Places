@@ -21,8 +21,6 @@ import com.google.android.gms.location.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-
-    public val myString = "HELLOWORLDICEK"
     private val PERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
     public var currentLatitude = "100000.0"

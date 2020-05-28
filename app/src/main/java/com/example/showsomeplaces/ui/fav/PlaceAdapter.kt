@@ -1,6 +1,7 @@
 package com.example.showsomeplaces.ui.fav
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +12,14 @@ import com.example.showsomeplaces.R
 import com.example.showsomeplaces.extension.toBitmap
 import com.example.showsomeplaces.model.Place
 import com.example.showsomeplaces.repository.PlaceRepository
+import com.example.showsomeplaces.ui.update.UpdateActivity
 import kotlinx.android.synthetic.main.item_place.view.*
 
 
 class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdapter.NoteViewHolder>() {
     private val places: MutableList<Place> = mutableListOf()
     private val placeRepository: PlaceRepository? by lazy { PlaceRepository(context) }
+    var activity:Context = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_place, parent, false)
@@ -27,11 +30,25 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         holder.bind(places[position])
-/*
-                Editing place
-             */
+        /*
+            Editing place
+         */
         holder.editButton.setOnClickListener {
             Toast.makeText(context, "You clicked edit button", Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, UpdateActivity::class.java)
+            intent.putExtra("title", places[position].title)
+            intent.putExtra("latitude", places[position].latitude)
+            intent.putExtra("longitude", places[position].longitude)
+            intent.putExtra("note", places[position].note)
+            intent.putExtra("poi", places[position].poi)
+            activity.startActivity(intent)
+        }
+
+        /*
+               animate place on map
+        */
+        holder.placeButton.setOnClickListener {
+            Toast.makeText(context, "You clicked place button", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -43,8 +60,6 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
     fun deletePlace(place: Place) {
         places.remove(place)
         placeRepository?.deletePlace(place)
-        // placeRepository?.deleteAll()
-        // notifyItemRemoved(place.id.toInt())
         notifyDataSetChanged()
     }
 
@@ -57,14 +72,14 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
     inner class NoteViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
         private val deleteButton = view.findViewById(R.id.note_delete_button) as ImageButton
         val editButton = view.findViewById(R.id.note_edit_button) as ImageButton
-        private val placeButton = view.findViewById(R.id.note_place_button) as ImageButton
+        val placeButton = view.findViewById(R.id.note_place_button) as ImageButton
 
         fun bind(place: Place) {
             view.place_title_text_view.text = place.title
             view.poi_text_view.text = place.poi
             view.note_text_view.text = place.note
             if (place.imageByteArray != null) {
-                view.image_view.setImageBitmap(place.imageByteArray?.toBitmap())
+                view.image_view.setImageBitmap(place.imageByteArray.toBitmap())
             }
 
 
@@ -79,12 +94,7 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
 
 
 
-            /*
-                animate place on map
-             */
-            placeButton.setOnClickListener {
-                Toast.makeText(context, "You clicked place button", Toast.LENGTH_SHORT).show()
-            }
+
         }
     }
 }

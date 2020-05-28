@@ -63,7 +63,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         //currentLongitude = (activity as MainActivity).currentLongitude
 
         mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment?.getMapAsync(this)
+        mapFragment.getMapAsync(this)
 
 
         return view
@@ -123,7 +123,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             val latitude = placesToMark[i].latitude
             val longitude = placesToMark[i].longitude
             val title = placesToMark[i].title
-            val note = placesToMark[i].note
             val poi = placesToMark[i].poi
             // mam to v try pro sichr kvuli tomu, ze jsem tam na zacatku vkladal spatne data, alespon, pokud to nezacnu mazat
             try {
@@ -132,7 +131,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
                         .title(title)
                         .snippet(poi)
                 )
-            }  catch (e: NumberFormatException) { null }
+            }  catch (e: NumberFormatException) {
+                println(e)
+            }
 
 
         }
