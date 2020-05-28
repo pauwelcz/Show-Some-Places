@@ -44,7 +44,9 @@ class DetailFragment : Fragment() {
         val currentLongitude = (activity as DetailActivity).currentLongitude
         // ukladam title
         view.latitude_edit_text.setText(currentLatitude)
+        place = place.copy(latitude = currentLatitude)
         view.longitude_edit_text.setText(currentLongitude)
+        place = place.copy(longitude = currentLongitude)
 
         view.title_edit_text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
