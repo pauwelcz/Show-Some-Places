@@ -11,12 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.model.Place
 import com.example.showsomeplaces.repository.PlaceRepository
-import com.example.showsomeplaces.ui.fav.PlaceAdapter
 import com.example.showsomeplaces.util.PrefManager
 import kotlinx.android.synthetic.main.fragment_list_founded.view.*
 
 class FoundedFragment : Fragment() {
-    private val adapter: PlaceAdapter? by lazy { context?.let { PlaceAdapter(it) } }
+    private val adapter: FoundedPlaceAdapter? by lazy { context?.let { FoundedPlaceAdapter(it) } }
     private val prefManager: PrefManager? by lazy {
         context?.let { PrefManager(it) }
     }
@@ -37,6 +36,10 @@ class FoundedFragment : Fragment() {
               recycler_view_founded.layoutManager = LinearLayoutManager(context)
 
               val places = placeRepository?.getAllPlaces() ?: listOf()
+
+              /*
+                Tady musim nejak ziskat ten json
+               */
               adapter?.submitList(places)
               recycler_view_founded.adapter = adapter
         }
