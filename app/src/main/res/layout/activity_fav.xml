@@ -8,16 +8,16 @@
     tools:context=".ui.fav.FavActivity">
 
     <TextView
-        android:id="@+id/text_view1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/fav_activity_string"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+    android:id="@+id/text_view1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/fav_activity_string"
+    app:layout_constraintTop_toTopOf="parent"
+    android:background="@color/colorPrimaryDark"
+    android:gravity="center"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fav_places_list"

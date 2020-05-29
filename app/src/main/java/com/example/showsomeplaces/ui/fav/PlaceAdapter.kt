@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.showsomeplaces.MainActivity
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.extension.toBitmap
 import com.example.showsomeplaces.model.Place
@@ -23,8 +22,8 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
     private val placeRepository: PlaceRepository? by lazy { PlaceRepository(context) }
 
     var activity:Context = context
-    val currentLatitude = (activity as MainActivity).currentLatitude
-    val currentLongitude = (activity as MainActivity).currentLongitude
+    //val currentLatitude = (activity as MainActivity).currentLatitude
+    //val currentLongitude = (activity as MainActivity).currentLongitude
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_place, parent, false)
@@ -99,7 +98,8 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
             view.place_title_text_view.text = place.title
             view.poi_text_view.text = place.poi
             view.note_text_view.text = place.note
-            view.note_distance_km.text = getDistance(currentLatitude.toDouble(), currentLongitude.toDouble(), place.latitude.toDouble(), place.longitude.toDouble()).toString() + " kilometers from you"
+            view.note_distance_km.text = getDistance(place.longitude.toDouble(), place.latitude.toDouble(), place.latitude.toDouble(), place.longitude.toDouble()).toString() + " kilometers from you"
+
             if (place.imageByteArray != null) {
                 view.image_view.setImageBitmap(place.imageByteArray.toBitmap())
             }

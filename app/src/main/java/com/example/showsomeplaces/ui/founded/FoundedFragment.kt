@@ -1,4 +1,4 @@
-package com.example.showsomeplaces.ui.fav
+package com.example.showsomeplaces.ui.founded
 
 import android.app.Activity
 import android.content.Intent
@@ -11,12 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.model.Place
 import com.example.showsomeplaces.repository.PlaceRepository
-import com.example.showsomeplaces.ui.detail.DetailActivity
+import com.example.showsomeplaces.ui.fav.PlaceAdapter
 import com.example.showsomeplaces.util.PrefManager
-import kotlinx.android.synthetic.main.activity_fav.*
+import kotlinx.android.synthetic.main.fragment_list_founded.view.*
 
-class FavFragment : Fragment() {
-
+class FoundedFragment : Fragment() {
     private val adapter: PlaceAdapter? by lazy { context?.let { PlaceAdapter(it) } }
     private val prefManager: PrefManager? by lazy {
         context?.let { PrefManager(it) }
@@ -33,17 +32,13 @@ class FavFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? =
-        inflater.inflate(R.layout.fragment_my_places, container, false).apply {
+        inflater.inflate(R.layout.fragment_list_founded, container, false).apply {
 
-            fav_places_list.layoutManager = LinearLayoutManager(context)
+              recycler_view_founded.layoutManager = LinearLayoutManager(context)
 
-            val places = placeRepository?.getAllPlaces() ?: listOf()
-            adapter?.submitList(places)
-            fav_places_list.adapter = adapter
-
-            add_button.setOnClickListener {
-                startActivityForResult(DetailActivity.newIntent(context), REQ_PLACE)
-            }
+              val places = placeRepository?.getAllPlaces() ?: listOf()
+              adapter?.submitList(places)
+              recycler_view_founded.adapter = adapter
         }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -53,7 +48,7 @@ class FavFragment : Fragment() {
 
         when (requestCode) {
             REQ_PLACE -> {
-                val place = data?.getParcelableExtra<Place>(DetailActivity.ARG_PLACE) ?: return
+                val place = data?.getParcelableExtra<Place>(FoundedActivity.ARG_PLACE) ?: return
                 adapter?.addPlace(place)
 
                 placeRepository?.insertPlace(place)
