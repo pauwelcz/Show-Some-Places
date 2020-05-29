@@ -18,6 +18,8 @@ class UpdateActivity : AppCompatActivity() {
     public var longitude = ""
     public var note = ""
     public var poi = ""
+    public var imageByteArray: ByteArray? = null
+    public var id = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,8 @@ class UpdateActivity : AppCompatActivity() {
         longitude = intent.getStringExtra("longitude")
         note = intent.getStringExtra("note")
         poi = intent.getStringExtra("poi")
+        imageByteArray = intent.getByteArrayExtra("imageByteArray")
+        id = intent.getLongExtra("id", 10000)
 
         if (savedInstanceState == null) {
             val fragment = UpdateDetailFragment()

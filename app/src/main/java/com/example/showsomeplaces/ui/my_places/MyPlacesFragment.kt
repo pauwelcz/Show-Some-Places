@@ -65,7 +65,6 @@ class MyPlacesFragment : Fragment() {
             REQ_PLACE -> {
                 val place = data?.getParcelableExtra<Place>(DetailActivity.ARG_PLACE) ?: return
                 adapter?.addPlace(place)
-
                 placeRepository?.insertPlace(place)
             }
         }

@@ -41,6 +41,8 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
             intent.putExtra("longitude", places[position].longitude)
             intent.putExtra("note", places[position].note)
             intent.putExtra("poi", places[position].poi)
+            intent.putExtra("imageByteArray", places[position].imageByteArray)
+            intent.putExtra("id", places[position].id)
             activity.startActivity(intent)
         }
 
@@ -60,6 +62,11 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
     fun deletePlace(place: Place) {
         places.remove(place)
         placeRepository?.deletePlace(place)
+        notifyDataSetChanged()
+    }
+
+    fun updatePlace(place: Place) {
+        placeRepository?.updatePlace(place)
         notifyDataSetChanged()
     }
 

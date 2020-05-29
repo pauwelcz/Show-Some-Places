@@ -1,6 +1,5 @@
-package com.example.showsomeplaces.ui.update
+package com.example.showsomeplaces.ui.founded.save
 
-// import com.example.showsomeplaces.repository.UserRepository
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -17,26 +16,16 @@ import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.showsomeplaces.R
-import com.example.showsomeplaces.extension.toBitmap
 import com.example.showsomeplaces.extension.toByteArray
 import com.example.showsomeplaces.model.Place
 import com.example.showsomeplaces.model.REQUEST_CAMERA_PERMISSION
 import com.example.showsomeplaces.model.REQUEST_IMAGE_CAPTURE
-import com.example.showsomeplaces.repository.PlaceRepository
-import com.example.showsomeplaces.ui.fav.PlaceAdapter
-import com.example.showsomeplaces.util.PrefManager
-import kotlinx.android.synthetic.main.fragment_detail_update.view.*
+import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_save.view.*
 
-class UpdateDetailFragment : Fragment() {
+class SaveFragment : Fragment() {
 
     private var place = Place()
-
-    private val adapter: PlaceAdapter? by lazy { context?.let { PlaceAdapter(it) } }
-    private val prefManager: PrefManager? by lazy {
-        context?.let { PrefManager(it) }
-    }
-
-    private val placeRepository: PlaceRepository? by lazy { context?.let { PlaceRepository(it) } }
 
     // private val userRepository by lazy { UserRepository() }
 
@@ -46,28 +35,27 @@ class UpdateDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         retainInstance = true
-        val view = inflater.inflate(R.layout.fragment_detail_update, container, false)
+        val view = inflater.inflate(R.layout.fragment_detail, container, false)
 
-        val title = (activity as UpdateActivity).title
-        place = place.copy(title = title)
-        val latitude = (activity as UpdateActivity).latitude
-        place = place.copy(latitude = latitude)
-        val longitude = (activity as UpdateActivity).longitude
-        place = place.copy(longitude = longitude)
-        val note = (activity as UpdateActivity).note
-        place = place.copy(note = note)
-        val poi = (activity as UpdateActivity).poi
-        place = place.copy(poi = poi)
-        val imageByteArray = (activity as UpdateActivity).imageByteArray
-        place = place.copy(imageByteArray = imageByteArray)
-        val id = (activity as UpdateActivity).id
-        place = place.copy(id = id)
+        view.save_button.isEnabled = false
+
+       // val currentLatitude = (activity as SaveActivity).currentLatitude
+       // val currentLongitude = (activity as SaveActivity).currentLongitude
         // ukladam title
+        //view.latitude_edit_text.setText(currentLatitude)
+       // place = place.copy(latitude = currentLatitude)
+        //view.longitude_edit_text.setText(currentLongitude)
+        //place = place.copy(longitude = currentLongitude)
 
-        view.title_edit_text.setText(title)
         view.title_edit_text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                place = place.copy(title = s.toString())
+                /*
+                    Save button is disabled until string with places is not empty
+                */
+                if(s.toString().trim().isNotEmpty()){
+                    place = place.copy(title = s.toString())
+                    save_button.isEnabled = true;
+                }
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -76,7 +64,6 @@ class UpdateDetailFragment : Fragment() {
         })
 
         // ukladam latitude
-        view.latitude_edit_text.setText(latitude)
         view.latitude_edit_text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 place = place.copy(latitude = s.toString())
@@ -88,7 +75,6 @@ class UpdateDetailFragment : Fragment() {
         })
 
         // ukladam longitude
-        view.longitude_edit_text.setText(longitude)
         view.longitude_edit_text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 place = place.copy(longitude = s.toString())
@@ -100,7 +86,6 @@ class UpdateDetailFragment : Fragment() {
         })
 
         // ukladam note
-        view.note_edit_text.setText(note)
         view.note_edit_text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 place = place.copy(note = s.toString())
@@ -111,20 +96,11 @@ class UpdateDetailFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        /*
-            Ukladam  poi
-         */
         val poiArray = resources.getStringArray(R.array.array_points_of_interests)
-
+        // val categoryArray = arrayOf("Doma", "Práce", "Osobní")
         context?.let { context ->
             view.category_spinner.adapter =
                 ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, poiArray)
-
-            /*
-                Ziskam si pozici spinneru, protoze jsem vul a neulozil si ji
-             */
-            val spinnerPosition: Int = (view.category_spinner.adapter as ArrayAdapter<String>).getPosition(poi)
-            view.category_spinner.setSelection(spinnerPosition)
 
             view.category_spinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -140,20 +116,13 @@ class UpdateDetailFragment : Fragment() {
                 }
         }
 
-        /*
-            Ukladam obrazek
-         */
-        if (imageByteArray != null) {
-            view.image_view.setImageBitmap(imageByteArray.toBitmap())
-        }
 
-        /*
-            Save button
-         */
         view.save_button.setOnClickListener {
-           adapter?.updatePlace(place)
-           placeRepository?.updatePlace(place)
-           activity?.finish()
+            val intent = Intent()
+            intent.putExtra(SaveActivity.ARG_PLACE, place)
+
+            activity?.setResult(Activity.RESULT_OK, intent)
+            activity?.finish()
         }
 
         view.add_photo.setOnClickListener {
