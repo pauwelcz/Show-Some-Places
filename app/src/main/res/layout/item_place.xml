@@ -49,6 +49,15 @@
         app:layout_constraintTop_toBottomOf="@id/poi_text_view"
         tools:text="Poznámka" />
 
+    <TextView
+        android:id="@+id/note_distance_km"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/image_view"
+        app:layout_constraintTop_toBottomOf="@id/note_text_view"
+        tools:text="Distance (km)" />
+
     <ImageButton
         android:id="@+id/note_place_button"
         android:layout_width="@dimen/image_button"
@@ -92,6 +101,6 @@
         android:layout_margin="8dp"
         android:background="@android:color/darker_gray"
         tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@id/note_text_view"/>
+        app:layout_constraintTop_toBottomOf="@id/note_distance_km"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 

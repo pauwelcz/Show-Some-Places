@@ -2,12 +2,14 @@ package com.example.showsomeplaces.ui.fav
 
 import android.content.Context
 import android.content.Intent
+import android.location.Location
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.showsomeplaces.MainActivity
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.extension.toBitmap
 import com.example.showsomeplaces.model.Place
@@ -19,7 +21,10 @@ import kotlinx.android.synthetic.main.item_place.view.*
 class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdapter.NoteViewHolder>() {
     private val places: MutableList<Place> = mutableListOf()
     private val placeRepository: PlaceRepository? by lazy { PlaceRepository(context) }
+
     var activity:Context = context
+    val currentLatitude = (activity as MainActivity).currentLatitude
+    val currentLongitude = (activity as MainActivity).currentLongitude
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_place, parent, false)
@@ -76,6 +81,15 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
         notifyDataSetChanged()
     }
 
+    /*
+        getting distance form current place
+     */
+    fun getDistance(startLat: Double, startLong: Double, endLat: Double, endLong: Double): Float {
+        val result = FloatArray(3)
+        Location.distanceBetween(startLat, startLong, endLat, endLong, result)
+        return (result[0] / 1000)
+    }
+
     inner class NoteViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
         private val deleteButton = view.findViewById(R.id.note_delete_button) as ImageButton
         val editButton = view.findViewById(R.id.note_edit_button) as ImageButton
@@ -85,6 +99,7 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
             view.place_title_text_view.text = place.title
             view.poi_text_view.text = place.poi
             view.note_text_view.text = place.note
+            view.note_distance_km.text = getDistance(currentLatitude.toDouble(), currentLongitude.toDouble(), place.latitude.toDouble(), place.longitude.toDouble()).toString() + " kilometers from you"
             if (place.imageByteArray != null) {
                 view.image_view.setImageBitmap(place.imageByteArray.toBitmap())
             }
@@ -98,10 +113,6 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
                 val toastMessage: String = "Place \"" + place.title + "\" deleted."
                 Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT).show()
             }
-
-
-
-
         }
     }
 }
