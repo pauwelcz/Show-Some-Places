@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.showsomeplaces.R
+import com.example.showsomeplaces.model.FoundedPlace
 import com.example.showsomeplaces.model.Place
 import com.example.showsomeplaces.repository.PlaceRepository
 import com.example.showsomeplaces.ui.founded.save.SaveActivity
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.item_founded_place.view.*
 
 class FoundedPlaceAdapter(private val context: Context): RecyclerView.Adapter<FoundedPlaceAdapter.NoteViewHolder>() {
     private val places: MutableList<Place> = mutableListOf()
+    private val foundedPlaces: MutableList<FoundedPlace> = mutableListOf()
     private val placeRepository: PlaceRepository? by lazy { PlaceRepository(context) }
 
     var activity:Context = context
@@ -30,6 +32,7 @@ class FoundedPlaceAdapter(private val context: Context): RecyclerView.Adapter<Fo
     }
 
     override fun getItemCount(): Int = places.size
+
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         holder.bind(places[position])

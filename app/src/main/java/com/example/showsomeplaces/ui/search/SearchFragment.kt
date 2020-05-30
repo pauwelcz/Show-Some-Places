@@ -105,6 +105,9 @@ class SearchFragment : Fragment() {
             // Toast.makeText(context, nearbyPlacesAddress, Toast.LENGTH_SHORT).show()
             val intent = Intent (context, FoundedActivity::class.java)
             intent.putExtra("url", nearbyPlacesAddress)
+            intent.putExtra("poi", poi)
+            intent.putExtra("curLat", currentLatitude)
+            intent.putExtra("curLng", currentLongitude)
             startActivity(intent)
         }
         // toto je google place apicko
