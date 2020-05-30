@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.model.Place
@@ -35,6 +36,10 @@ class FoundedPlaceAdapter(private val context: Context): RecyclerView.Adapter<Fo
 
         holder.saveButton.setOnClickListener {
             Toast.makeText(context, "You clicked save button", Toast.LENGTH_SHORT).show()
+            holder.saveButton.background = ContextCompat.getDrawable(context, R.drawable.ic_baseline_favorite_24)
+            holder.saveButton.isEnabled = false
+
+
             val intent = Intent(context, SaveActivity::class.java)
             intent.putExtra("title", places[position].title)
             intent.putExtra("latitude", places[position].latitude)
