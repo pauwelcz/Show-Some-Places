@@ -22,7 +22,6 @@
         <activity android:name=".ui.founded.FoundedActivity"></activity>
         <activity android:name=".ui.founded.save.SaveActivity" />
         <activity android:name=".ui.update.UpdateActivity" />
-        <activity android:name=".ui.home.HomeActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"

@@ -9,14 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.showsomeplaces.MainActivity
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.ui.founded.FoundedActivity
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
-
 
 class SearchFragment : Fragment() {
 
@@ -101,10 +99,12 @@ class SearchFragment : Fragment() {
             * */
             val getMetersValue = getMeters(unit, range)
 
-            val nearbyPlacesAddress = getRequestAddress(currentLatitude, currentLongitude, getMetersValue.toString(), getProperlyPOI(poi))
-            Toast.makeText(context, nearbyPlacesAddress, Toast.LENGTH_SHORT).show()
-            val intent = Intent (context, FoundedActivity::class.java)
+            // String url = "https://reqres.in/api/users?page=2"
 
+            val nearbyPlacesAddress = getRequestAddress(currentLatitude, currentLongitude, getProperlyPOI(poi), getMetersValue.toString())
+            // Toast.makeText(context, nearbyPlacesAddress, Toast.LENGTH_SHORT).show()
+            val intent = Intent (context, FoundedActivity::class.java)
+            intent.putExtra("url", nearbyPlacesAddress)
             startActivity(intent)
         }
         // toto je google place apicko
