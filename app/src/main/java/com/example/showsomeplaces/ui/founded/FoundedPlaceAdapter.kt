@@ -1,15 +1,18 @@
 package com.example.showsomeplaces.ui.founded
 
 import android.content.Context
+import android.content.Intent
 import android.location.Location
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.model.Place
 import com.example.showsomeplaces.repository.PlaceRepository
+import com.example.showsomeplaces.ui.founded.save.SaveActivity
 import kotlinx.android.synthetic.main.item_founded_place.view.*
 
 class FoundedPlaceAdapter(private val context: Context): RecyclerView.Adapter<FoundedPlaceAdapter.NoteViewHolder>() {
@@ -30,6 +33,15 @@ class FoundedPlaceAdapter(private val context: Context): RecyclerView.Adapter<Fo
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         holder.bind(places[position])
 
+        holder.saveButton.setOnClickListener {
+            Toast.makeText(context, "You clicked save button", Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, SaveActivity::class.java)
+            intent.putExtra("title", places[position].title)
+            intent.putExtra("latitude", places[position].latitude)
+            intent.putExtra("longitude", places[position].longitude)
+            intent.putExtra("poi", places[position].poi)
+            activity.startActivity(intent)
+        }
     }
 
     fun addPlace(place: Place) {

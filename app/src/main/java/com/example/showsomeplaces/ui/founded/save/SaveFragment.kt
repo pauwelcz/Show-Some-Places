@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.showsomeplaces.R
@@ -20,6 +21,9 @@ import com.example.showsomeplaces.extension.toByteArray
 import com.example.showsomeplaces.model.Place
 import com.example.showsomeplaces.model.REQUEST_CAMERA_PERMISSION
 import com.example.showsomeplaces.model.REQUEST_IMAGE_CAPTURE
+import com.example.showsomeplaces.repository.PlaceRepository
+import com.example.showsomeplaces.ui.fav.PlaceAdapter
+import com.example.showsomeplaces.util.PrefManager
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_save.view.*
 
@@ -27,6 +31,12 @@ class SaveFragment : Fragment() {
 
     private var place = Place()
 
+    private val adapter: PlaceAdapter? by lazy { context?.let { PlaceAdapter(it) } }
+    private val prefManager: PrefManager? by lazy {
+        context?.let { PrefManager(it) }
+    }
+
+    private val placeRepository: PlaceRepository? by lazy { context?.let { PlaceRepository(it) } }
     // private val userRepository by lazy { UserRepository() }
 
     override fun onCreateView(
@@ -37,15 +47,18 @@ class SaveFragment : Fragment() {
         retainInstance = true
         val view = inflater.inflate(R.layout.fragment_detail, container, false)
 
-        view.save_button.isEnabled = false
-
-       // val currentLatitude = (activity as SaveActivity).currentLatitude
-       // val currentLongitude = (activity as SaveActivity).currentLongitude
+        val currentLatitude = (activity as SaveActivity).currentLatitude
+        val currentLongitude = (activity as SaveActivity).currentLongitude
+        val currentTitle = (activity as SaveActivity).title
+        val currentPoi = (activity as SaveActivity).poi
         // ukladam title
-        //view.latitude_edit_text.setText(currentLatitude)
-       // place = place.copy(latitude = currentLatitude)
-        //view.longitude_edit_text.setText(currentLongitude)
-        //place = place.copy(longitude = currentLongitude)
+        view.title_edit_text.setText(currentTitle)
+        place = place.copy(title = currentTitle)
+        view.latitude_edit_text.setText(currentLatitude)
+        place = place.copy(latitude = currentLatitude)
+        view.longitude_edit_text.setText(currentLongitude)
+        place = place.copy(longitude = currentLongitude)
+        place = place.copy(poi = currentPoi)
 
         view.title_edit_text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -101,6 +114,8 @@ class SaveFragment : Fragment() {
         context?.let { context ->
             view.category_spinner.adapter =
                 ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, poiArray)
+            val spinnerPosition: Int = (view.category_spinner.adapter as ArrayAdapter<String>).getPosition(currentPoi)
+            view.category_spinner.setSelection(spinnerPosition)
 
             view.category_spinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -121,6 +136,9 @@ class SaveFragment : Fragment() {
             val intent = Intent()
             intent.putExtra(SaveActivity.ARG_PLACE, place)
 
+            adapter?.addPlace(place)
+            placeRepository?.insertPlace(place)
+            Toast.makeText(context, "Place Saved", Toast.LENGTH_SHORT).show()
             activity?.setResult(Activity.RESULT_OK, intent)
             activity?.finish()
         }
