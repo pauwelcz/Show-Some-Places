@@ -52,12 +52,18 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
         }
 
         /*
-               animate place on map
-        */
+              animate place on map
+       */
         holder.placeButton.setOnClickListener {
-            //val myFragment: Fragment = HomeFragment()
-           // view.getContext().supportFragmentManager.beginTransaction()
-            //    .replace(R.id.fragment_container, myFragment).addToBackStack(null).commit()
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra("title", places[position].title)
+            intent.putExtra("latitude", places[position].latitude)
+            intent.putExtra("longitude", places[position].longitude)
+            ////intent.putExtra("note", places[position].note)
+            intent.putExtra("poi", places[position].poi)
+            //intent.putExtra("imageByteArray", places[position].imageByteArray)
+            //intent.putExtra("id", places[position].id)
+            activity.startActivity(intent)
 
             Toast.makeText(context, "You clicked place button", Toast.LENGTH_SHORT).show()
         }
@@ -118,8 +124,6 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
             if (place.imageByteArray != null) {
                 view.image_view.setImageBitmap(place.imageByteArray.toBitmap())
             }
-
-
             /*
                 Deleting place (also from database)
              */

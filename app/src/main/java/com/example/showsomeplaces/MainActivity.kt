@@ -22,7 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     private val PERMISSION_ID = 42
-    lateinit var mFusedLocationClient: FusedLocationProviderClient
+    private lateinit var mFusedLocationClient: FusedLocationProviderClient
     public var currentLatitude = "100000.0"
     public var currentLongitude = "100000.0"
 

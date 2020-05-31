@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.showsomeplaces.MainActivity
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.model.FoundedPlace
 import com.example.showsomeplaces.model.Place
@@ -50,6 +51,20 @@ class FoundedPlaceAdapter(private val context: Context): RecyclerView.Adapter<Fo
             intent.putExtra("poi", foundedPlaces[position].poi)
             activity.startActivity(intent)
         }
+
+        holder.placeButton.setOnClickListener {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra("title", foundedPlaces[position].title)
+            intent.putExtra("latitude", foundedPlaces[position].latitude)
+            intent.putExtra("longitude", foundedPlaces[position].longitude)
+            ////intent.putExtra("note", places[position].note)
+            intent.putExtra("poi", foundedPlaces[position].poi)
+            //intent.putExtra("imageByteArray", places[position].imageByteArray)
+            //intent.putExtra("id", places[position].id)
+            activity.startActivity(intent)
+
+            Toast.makeText(context, "You clicked place button", Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun addPlace(place: Place) {
@@ -85,7 +100,7 @@ class FoundedPlaceAdapter(private val context: Context): RecyclerView.Adapter<Fo
     }
 
     inner class NoteViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
-        val zoomButton = view.findViewById(R.id.founded_place_zoom_button) as ImageButton
+        val placeButton = view.findViewById(R.id.founded_place_zoom_button) as ImageButton
         val saveButton = view.findViewById(R.id.founded_place_save_button) as ImageButton
 
         val currentLatitude = (activity as FoundedActivity).currentLatitude

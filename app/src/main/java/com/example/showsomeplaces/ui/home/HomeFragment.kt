@@ -48,6 +48,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
     private var currentLatitude: String? = null
     private var currentLongitude: String? = null
+    private var latitudeToAnimate: String? = null
+    private var longitudeToAnimate: String? = null
 
 
 
@@ -58,10 +60,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        retainInstance = true
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         //currentLatitude = (activity as MainActivity).currentLatitude
         //currentLongitude = (activity as MainActivity).currentLongitude
-
         mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
