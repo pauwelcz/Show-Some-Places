@@ -31,11 +31,11 @@ class FoundedPlaceAdapter(private val context: Context): RecyclerView.Adapter<Fo
         return NoteViewHolder(view)
     }
 
-    override fun getItemCount(): Int = places.size
+    override fun getItemCount(): Int = foundedPlaces.size
 
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        holder.bind(places[position])
+        holder.bind(foundedPlaces[position])
 
         holder.saveButton.setOnClickListener {
             Toast.makeText(context, "You clicked save button", Toast.LENGTH_SHORT).show()
@@ -44,10 +44,10 @@ class FoundedPlaceAdapter(private val context: Context): RecyclerView.Adapter<Fo
 
 
             val intent = Intent(context, SaveActivity::class.java)
-            intent.putExtra("title", places[position].title)
-            intent.putExtra("latitude", places[position].latitude)
-            intent.putExtra("longitude", places[position].longitude)
-            intent.putExtra("poi", places[position].poi)
+            intent.putExtra("title", foundedPlaces[position].title)
+            intent.putExtra("latitude", foundedPlaces[position].latitude)
+            intent.putExtra("longitude", foundedPlaces[position].longitude)
+            intent.putExtra("poi", foundedPlaces[position].poi)
             activity.startActivity(intent)
         }
     }
@@ -68,9 +68,9 @@ class FoundedPlaceAdapter(private val context: Context): RecyclerView.Adapter<Fo
         notifyDataSetChanged()
     }
 
-    fun submitList(notes: List<Place>) {
-        this.places.clear()
-        this.places.addAll(notes)
+    fun submitList(notes: MutableList<FoundedPlace>) {
+        this.foundedPlaces.clear()
+        this.foundedPlaces.addAll(notes)
         notifyDataSetChanged()
     }
 
@@ -87,11 +87,11 @@ class FoundedPlaceAdapter(private val context: Context): RecyclerView.Adapter<Fo
         val zoomButton = view.findViewById(R.id.founded_place_zoom_button) as ImageButton
         val saveButton = view.findViewById(R.id.founded_place_save_button) as ImageButton
 
-        fun bind(place: Place) {
-            view.founded_place_title_text_view.text = place.title
-            view.founded_poi_text_view.text = place.poi
-            view.founded_rating_text_view.text = "4.7"
-            //view.note_distance_km.text = getDistance(place.longitude.toDouble(), place.latitude.toDouble(), place.latitude.toDouble(), place.longitude.toDouble()).toString() + " kilometers from you"
+        fun bind(foundedPlaces: FoundedPlace) {
+            view.founded_place_title_text_view.text = foundedPlaces.title
+            view.founded_poi_text_view.text = foundedPlaces.poi
+            view.founded_rating_text_view.text = foundedPlaces.rating
+            view.founded_place_distance_km.text = getDistance(foundedPlaces.longitude.toDouble(), foundedPlaces.latitude.toDouble(), foundedPlaces.latitude.toDouble(), foundedPlaces.longitude.toDouble()).toString() + " kilometers from you"
         }
     }
 }

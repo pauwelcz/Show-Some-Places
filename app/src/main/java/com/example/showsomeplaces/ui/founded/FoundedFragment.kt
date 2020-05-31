@@ -1,3 +1,4 @@
+
 package com.example.showsomeplaces.ui.founded
 
 import android.app.Activity
@@ -33,15 +34,18 @@ class FoundedFragment : Fragment() {
     ): View? =
         inflater.inflate(R.layout.fragment_list_founded, container, false).apply {
 
-              recycler_view_founded.layoutManager = LinearLayoutManager(context)
+            recycler_view_founded.layoutManager = LinearLayoutManager(context)
 
-              val places = placeRepository?.getAllPlaces() ?: listOf()
-
-              /*
-                Tady musim nejak ziskat ten json
-               */
-              adapter?.submitList(places)
-              recycler_view_founded.adapter = adapter
+            val places = placeRepository?.getAllPlaces() ?: listOf()
+            val foundedPlaces = (activity as FoundedActivity).foundedPlaces
+            println("foundedplaces")
+            println(foundedPlaces)
+            println("foundedplaces")
+            /*
+              Tady musim nejak ziskat ten json
+             */
+            adapter?.submitList(foundedPlaces)
+            recycler_view_founded.adapter = adapter
         }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

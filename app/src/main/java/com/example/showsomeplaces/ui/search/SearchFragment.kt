@@ -12,12 +12,17 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.example.showsomeplaces.MainActivity
 import com.example.showsomeplaces.R
+import com.example.showsomeplaces.model.FoundedPlace
 import com.example.showsomeplaces.ui.founded.FoundedActivity
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
+import okhttp3.*
+import org.json.JSONObject
+import java.io.IOException
 
 class SearchFragment : Fragment() {
-
+    public var foundedPlaces = mutableListOf<FoundedPlace>()
+    public var listOfFoundedPlaces = listOf<FoundedPlace>()
     var unit: String = "Meters"
     var range: String = ""
     var poi: String = "restaurant"
@@ -103,12 +108,58 @@ class SearchFragment : Fragment() {
 
             val nearbyPlacesAddress = getRequestAddress(currentLatitude, currentLongitude, getProperlyPOI(poi), getMetersValue.toString())
             // Toast.makeText(context, nearbyPlacesAddress, Toast.LENGTH_SHORT).show()
-            val intent = Intent (context, FoundedActivity::class.java)
-            intent.putExtra("url", nearbyPlacesAddress)
-            intent.putExtra("poi", poi)
-            intent.putExtra("curLat", currentLatitude)
-            intent.putExtra("curLng", currentLongitude)
-            startActivity(intent)
+            val client = OkHttpClient()
+           // poi = intent.getStringExtra("poi")
+            //url = intent.getStringExtra("url")
+            // val url = "https://reqres.in/api/users?page=2"
+            val request: Request = Request.Builder()
+                .url(nearbyPlacesAddress)
+                .build()
+
+            client.newCall(request).enqueue(object : Callback {
+                @Throws(IOException::class)
+                override fun onResponse(call: Call, response: Response) {
+                    if (response.isSuccessful) {
+                        val myResponse = response.body!!.string()
+                        val responseJSONArray = JSONObject(myResponse).getJSONArray("results")
+
+                        for (i in 0 until responseJSONArray.length()) {
+                            var foundedPlace = FoundedPlace()
+                            val title = responseJSONArray.getJSONObject(i).get("name")
+                            var rating = "Not Rated Yet"
+                            if (responseJSONArray.getJSONObject(i).has("rating")) {
+                                rating = responseJSONArray.getJSONObject(i).get("rating").toString()
+                            }
+                            var latLongObject = responseJSONArray.getJSONObject(i).getJSONObject("geometry")
+                            latLongObject = latLongObject.getJSONObject("location")
+                            var latitude = latLongObject.get("lat")
+                            var longitude = latLongObject.get("lng")
+                            foundedPlace = foundedPlace.copy(id = i.toLong())
+                            foundedPlace = foundedPlace.copy(title = title.toString())
+                            foundedPlace = foundedPlace.copy(latitude = latitude.toString())
+                            foundedPlace = foundedPlace.copy(longitude = longitude.toString())
+                            foundedPlace = foundedPlace.copy(rating = rating)
+                            foundedPlace = foundedPlace.copy(poi = poi)
+
+                            foundedPlaces.add(foundedPlace)
+                        }
+                        listOfFoundedPlaces = foundedPlaces
+                        val intent = Intent (context, FoundedActivity::class.java)
+                        intent.putExtra("url", nearbyPlacesAddress)
+                        intent.putExtra("poi", poi)
+                        intent.putExtra("curLat", currentLatitude)
+                        intent.putExtra("curLng", currentLongitude)
+                        intent.putParcelableArrayListExtra("foundedPlaces", ArrayList(foundedPlaces))
+                        // intent.putExtra("foundedPlacesList", listOfFoundedPlaces)
+                        startActivity(intent)
+                    }
+                }
+
+                override fun onFailure(call: Call, e: IOException) {
+                    e.printStackTrace()
+                }
+            })
+
         }
         // toto je google place apicko
         // https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant|atm&keyword=cruise&key=AIzaSyCyk1JhB3_EmxLiC7bs3_knIBuEqOUK_1I

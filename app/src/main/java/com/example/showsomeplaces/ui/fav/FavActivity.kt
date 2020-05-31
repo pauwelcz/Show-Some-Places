@@ -16,6 +16,7 @@ class FavActivity : AppCompatActivity() {
         prefManager?.lastAppStartDate = System.currentTimeMillis()
 
         val fragment = FavFragment()
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()

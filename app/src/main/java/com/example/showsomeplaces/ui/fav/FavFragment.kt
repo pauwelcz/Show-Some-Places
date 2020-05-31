@@ -38,9 +38,9 @@ class FavFragment : Fragment() {
             fav_places_list.layoutManager = LinearLayoutManager(context)
 
             val places = placeRepository?.getAllPlaces() ?: listOf()
+
             adapter?.submitList(places)
             fav_places_list.adapter = adapter
-
             add_button.setOnClickListener {
                 startActivityForResult(DetailActivity.newIntent(context), REQ_PLACE)
             }
