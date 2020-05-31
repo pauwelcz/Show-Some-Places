@@ -25,13 +25,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     public var currentLatitude = "100000.0"
     public var currentLongitude = "100000.0"
+    public var myLatitude: String? = null
+    public var myLongitude: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
+        myLatitude = intent?.getStringExtra("latitude")
+        myLongitude = intent?.getStringExtra("longitude")
         getLastLocation()
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)

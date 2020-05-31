@@ -112,6 +112,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         /*
             Nastavim, abych na to vubec klikal
          */
+        if (latitudeToAnimate !== null && longitudeToAnimate !== null) {
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(latitudeToAnimate!!.toDouble(), longitudeToAnimate!!.toDouble()), 15.0f))
+        }
         googleMap.setOnMarkerClickListener(this)
     }
 
@@ -154,6 +157,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
         currentLatitude = (activity as MainActivity).currentLatitude
         currentLongitude = (activity as MainActivity).currentLongitude
+        latitudeToAnimate = (activity as MainActivity).myLatitude
+        longitudeToAnimate = (activity as MainActivity).myLongitude
     }
 
 }
