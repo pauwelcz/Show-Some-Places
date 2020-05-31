@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.showsomeplaces.MainActivity
 import com.example.showsomeplaces.R
 import com.example.showsomeplaces.extension.toBitmap
 import com.example.showsomeplaces.model.Place
@@ -54,6 +55,10 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
                animate place on map
         */
         holder.placeButton.setOnClickListener {
+            //val myFragment: Fragment = HomeFragment()
+           // view.getContext().supportFragmentManager.beginTransaction()
+            //    .replace(R.id.fragment_container, myFragment).addToBackStack(null).commit()
+
             Toast.makeText(context, "You clicked place button", Toast.LENGTH_SHORT).show()
         }
     }
@@ -80,6 +85,10 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
         notifyDataSetChanged()
     }
 
+    fun getLat(lat: String): String {
+        return lat
+    }
+
     /*
         getting distance form current place
      */
@@ -96,10 +105,15 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
         val placeButton = view.findViewById(R.id.note_place_button) as ImageButton
 
         fun bind(place: Place) {
+            val currentLatitude = (activity as MainActivity).currentLatitude
+            val currentLongitude = (activity as MainActivity).currentLongitude
+            // val currentLatitude = (activity as FavActivity).currentLatitude
+            //val currentLongitude = (activity as DetailActivity).currentLongitude
+
             view.place_title_text_view.text = place.title
             view.poi_text_view.text = place.poi
             view.note_text_view.text = place.note
-            view.note_distance_km.text = getDistance(place.longitude.toDouble(), place.latitude.toDouble(), place.latitude.toDouble(), place.longitude.toDouble()).toString() + " kilometers from you"
+            view.note_distance_km.text = getDistance(currentLatitude.toDouble(), currentLongitude.toDouble(), place.latitude.toDouble(), place.longitude.toDouble()).toString() + " kilometers from you"
 
             if (place.imageByteArray != null) {
                 view.image_view.setImageBitmap(place.imageByteArray.toBitmap())

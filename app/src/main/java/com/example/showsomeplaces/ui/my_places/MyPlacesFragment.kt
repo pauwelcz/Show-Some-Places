@@ -46,8 +46,8 @@ class MyPlacesFragment : Fragment() {
             val places = placeRepository?.getAllPlaces() ?: listOf()
             adapter?.submitList(places)
 
-
             fav_places_list.adapter = adapter
+
             add_place_button.setOnClickListener {
                 val intent = Intent(requireContext(), DetailActivity::class.java)
                 intent.putExtra("CURRENT_LATITUDE", currentLatitude)
