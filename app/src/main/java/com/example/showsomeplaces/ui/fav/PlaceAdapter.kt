@@ -83,10 +83,11 @@ class PlaceAdapter(private val context: Context): RecyclerView.Adapter<PlaceAdap
     /*
         getting distance form current place
      */
-    fun getDistance(startLat: Double, startLong: Double, endLat: Double, endLong: Double): Float {
+    fun getDistance(startLat: Double, startLong: Double, endLat: Double, endLong: Double): String {
         val result = FloatArray(3)
         Location.distanceBetween(startLat, startLong, endLat, endLong, result)
-        return (result[0] / 1000)
+
+        return String.format("%.3f", (result[0] / 1000))
     }
 
     inner class NoteViewHolder(private val view: View): RecyclerView.ViewHolder(view) {

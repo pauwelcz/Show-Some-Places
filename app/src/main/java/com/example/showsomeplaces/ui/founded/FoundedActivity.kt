@@ -28,6 +28,8 @@ class FoundedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_single_container)
 
+        currentLatitude = intent.getStringExtra("curLat")
+        currentLongitude = intent.getStringExtra("curLng")
         foundedPlaces = intent.getParcelableArrayListExtra<FoundedPlace>("foundedPlaces")
 
         prefManager?.lastAppStartDate = System.currentTimeMillis()

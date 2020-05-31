@@ -109,9 +109,6 @@ class SearchFragment : Fragment() {
             val nearbyPlacesAddress = getRequestAddress(currentLatitude, currentLongitude, getProperlyPOI(poi), getMetersValue.toString())
             // Toast.makeText(context, nearbyPlacesAddress, Toast.LENGTH_SHORT).show()
             val client = OkHttpClient()
-           // poi = intent.getStringExtra("poi")
-            //url = intent.getStringExtra("url")
-            // val url = "https://reqres.in/api/users?page=2"
             val request: Request = Request.Builder()
                 .url(nearbyPlacesAddress)
                 .build()

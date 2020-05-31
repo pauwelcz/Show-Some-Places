@@ -77,21 +77,25 @@ class FoundedPlaceAdapter(private val context: Context): RecyclerView.Adapter<Fo
     /*
         getting distance form current place
      */
-    fun getDistance(startLat: Double, startLong: Double, endLat: Double, endLong: Double): Float {
+    fun getDistance(startLat: Double, startLong: Double, endLat: Double, endLong: Double): String {
         val result = FloatArray(3)
         Location.distanceBetween(startLat, startLong, endLat, endLong, result)
-        return (result[0] / 1000)
+
+        return String.format("%.3f", (result[0] / 1000))
     }
 
     inner class NoteViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
         val zoomButton = view.findViewById(R.id.founded_place_zoom_button) as ImageButton
         val saveButton = view.findViewById(R.id.founded_place_save_button) as ImageButton
 
+        val currentLatitude = (activity as FoundedActivity).currentLatitude
+        val currentLongitude = (activity as FoundedActivity).currentLongitude
+
         fun bind(foundedPlaces: FoundedPlace) {
             view.founded_place_title_text_view.text = foundedPlaces.title
             view.founded_poi_text_view.text = foundedPlaces.poi
             view.founded_rating_text_view.text = foundedPlaces.rating
-            view.founded_place_distance_km.text = getDistance(foundedPlaces.longitude.toDouble(), foundedPlaces.latitude.toDouble(), foundedPlaces.latitude.toDouble(), foundedPlaces.longitude.toDouble()).toString() + " kilometers from you"
+            view.founded_place_distance_km.text = getDistance(currentLatitude.toDouble(), currentLongitude.toDouble(), foundedPlaces.latitude.toDouble(), foundedPlaces.longitude.toDouble()).toString() + " kilometers from you"
         }
     }
 }

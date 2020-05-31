@@ -38,9 +38,6 @@ class FoundedFragment : Fragment() {
 
             val places = placeRepository?.getAllPlaces() ?: listOf()
             val foundedPlaces = (activity as FoundedActivity).foundedPlaces
-            println("foundedplaces")
-            println(foundedPlaces)
-            println("foundedplaces")
             /*
               Tady musim nejak ziskat ten json
              */
